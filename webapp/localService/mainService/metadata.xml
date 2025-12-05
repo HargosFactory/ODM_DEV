@@ -63,13 +63,17 @@
                 <Property Name="Personworkagreement" Type="Edm.String" Nullable="false" MaxLength="8"/>
                 <Property Name="Projet" Type="Edm.String" Nullable="false" MaxLength="24"/>
                 <Property Name="ProjetAbs" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="Projet_line" Type="Edm.String" Nullable="false" MaxLength="24"/>
                 <Property Name="WorkItemID" Type="Edm.String" Nullable="false" MaxLength="24"/>
                 <Property Name="WorkItemIdAbs" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="WorkItemID_line" Type="Edm.String" Nullable="false" MaxLength="24"/>
                 <Property Name="Workdate" Type="Edm.Date"/>
                 <Property Name="Catstime" Type="Edm.TimeOfDay" Nullable="false"/>
                 <Property Name="Catshours" Type="Edm.Decimal" Nullable="false" Precision="4" Scale="2"/>
                 <Property Name="Meinh" Type="Edm.String" Nullable="false" MaxLength="3"/>
                 <Property Name="Timesheetstatus" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="TimeSheetStatusText" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="Timesheetstatuscriticality" Type="Edm.Byte" Nullable="false"/>
                 <Property Name="Timesheetrecordlongtext" Type="Edm.String" Nullable="false" MaxLength="1000"/>
                 <Property Name="Yy1Coupuredebut" Type="Edm.DateTimeOffset" Precision="7"/>
                 <Property Name="Yy1Coupurefin" Type="Edm.DateTimeOffset" Precision="7"/>
@@ -132,9 +136,10 @@
             </EntityType>
             <ComplexType Name="ZC_TTS_ODMOperationControl">
                 <Property Name="Edit" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="post" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="setDelete" Type="Edm.Boolean" Nullable="false"/>
             </ComplexType>
             <ComplexType Name="EntityControl">
-                <Property Name="Deletable" Type="Edm.Boolean" Nullable="false"/>
                 <Property Name="Updatable" Type="Edm.Boolean" Nullable="false"/>
             </ComplexType>
             <ComplexType Name="SAP__Message">
@@ -152,6 +157,9 @@
             <Action Name="Resume" IsBound="true">
                 <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
             </Action>
+            <Action Name="setDelete" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
             <Action Name="Activate" EntitySetPath="_it" IsBound="true">
                 <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
                 <ReturnType Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
@@ -164,6 +172,9 @@
             <Action Name="Prepare" IsBound="true">
                 <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
             </Action>
+            <Action Name="post" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
             <EntityContainer Name="Container">
                 <EntitySet Name="I_DraftAdministrativeData" EntityType="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.I_DraftAdministrativeDataType"/>
                 <EntitySet Name="ZC_TTS_ODM" EntityType="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType">
@@ -172,41 +183,81 @@
                 </EntitySet>
             </EntityContainer>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapUUID">
-                <Annotation Term="SAP__common.Label" String="SapUUID"/>
                 <Annotation Term="SAP__core.Computed"/>
-                <Annotation Term="SAP__common.Heading" String="UUID"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="UUID"/>
                 <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Timesheetrecord">
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Counter"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Counter for Records in Time Recording"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CATSCOUNTE"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Personexternalid">
-                <Annotation Term="SAP__common.Label" String="Personexternalid"/>
+                <Annotation Term="SAP__common.Label" String="ID Utilisateur"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Personfullname">
-                <Annotation Term="SAP__common.Label" String="Personfullname"/>
+                <Annotation Term="SAP__common.Label" String="Nom d'utilisateur"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Personworkagreement">
-                <Annotation Term="SAP__common.Label" String="Personworkagreement"/>
                 <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__UI.Hidden"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Projet">
-                <Annotation Term="SAP__common.Label" String="Projet"/>
+                <Annotation Term="SAP__common.Label" String="Projet ODM"/>
+                <Annotation Term="SAP__common.ValueListForValidation" String=""/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/z_i_odm_enterpriseprojectvh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.projet'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.ValueListWithFixedValues"/>
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/ProjetAbs">
-                <Annotation Term="SAP__common.Label" String="ProjetAbs"/>
+                <Annotation Term="SAP__common.Label" String="Projet Absence/Formation"/>
+                <Annotation Term="SAP__common.ValueListForValidation" String=""/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/z_i_abs_enterpriseprojectvh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.projetabs'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.ValueListWithFixedValues"/>
+                <Annotation Term="SAP__UI.Hidden" Path="IsOdm"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Projet_line">
+                <Annotation Term="SAP__core.Computed"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/WorkItemID">
-                <Annotation Term="SAP__common.Label" String="WorkItemID"/>
+                <Annotation Term="SAP__common.Label" String="Tâche ODM"/>
+                <Annotation Term="SAP__common.ValueListForValidation" String=""/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/z_i_odm_projectelementvh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.workitemid'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.ValueListWithFixedValues"/>
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/WorkItemIdAbs">
-                <Annotation Term="SAP__common.Label" String="WorkItemIdAbs"/>
+                <Annotation Term="SAP__common.Label" String="Tâche Absence/Formation"/>
+                <Annotation Term="SAP__common.ValueListForValidation" String=""/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/z_i_abs_projectelementvh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.workitemidabs'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.ValueListWithFixedValues"/>
+                <Annotation Term="SAP__UI.Hidden" Path="IsOdm"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/WorkItemID_line">
+                <Annotation Term="SAP__core.Computed"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Catstime">
-                <Annotation Term="SAP__common.Label" String="Catstime"/>
+                <Annotation Term="SAP__common.Label" String="Durée"/>
+                <Annotation Term="SAP__UI.Hidden" Path="IsOdm"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Catshours">
                 <Annotation Term="SAP__measures.Unit" Path="Meinh"/>
@@ -221,90 +272,47 @@
                         <String>../../../../srvd_f4/sap/i_unitofmeasurestdvh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.meinh'/$metadata</String>
                     </Collection>
                 </Annotation>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Display Unit/Measure"/>
                 <Annotation Term="SAP__common.Heading" String="UM"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Unit of Measure for Display"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MEINH"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Timesheetstatus">
+                <Annotation Term="SAP__common.Text" Path="TimeSheetStatusText">
+                    <Annotation Term="SAP__UI.TextArrangement" EnumMember="SAP__UI.TextArrangementType/TextOnly"/>
+                </Annotation>
                 <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="Processing Status"/>
                 <Annotation Term="SAP__common.Heading" String="St."/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CATSSTATUS"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Timesheetrecordlongtext">
-                <Annotation Term="SAP__common.Label" String="Timesheetrecordlongtext"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Coupuredebut">
-                <Annotation Term="SAP__common.Label" String="Yy1Coupuredebut"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Coupurefin">
-                <Annotation Term="SAP__common.Label" String="Yy1Coupurefin"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureecoupure">
-                <Annotation Term="SAP__common.Label" String="Yy1Dureecoupure"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Duretempsdetravail">
-                <Annotation Term="SAP__common.Label" String="Yy1Duretempsdetravail"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureetrajetaller">
-                <Annotation Term="SAP__common.Label" String="Yy1Dureetrajetaller"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureetrajetretour">
-                <Annotation Term="SAP__common.Label" String="Yy1Dureetrajetretour"/>
+                <Annotation Term="SAP__common.Label" String="Commentaires"/>
+                <Annotation Term="SAP__UI.MultiLineText"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Panierrepas">
-                <Annotation Term="SAP__common.Label" String="Yy1Panierrepas"/>
                 <Annotation Term="SAP__common.IsDigitSequence"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Primedeprodhif">
-                <Annotation Term="SAP__common.Label" String="Yy1Primedeprodhif"/>
-                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Primedeprodif">
-                <Annotation Term="SAP__common.Label" String="Yy1Primedeprodif"/>
-                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Tempsdetravaildbut">
-                <Annotation Term="SAP__common.Label" String="Yy1Tempsdetravaildbut"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Tempsdetravailfin">
-                <Annotation Term="SAP__common.Label" String="Yy1Tempsdetravailfin"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetallerdebut">
-                <Annotation Term="SAP__common.Label" String="Yy1Trajetallerdebut"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetallerfin">
-                <Annotation Term="SAP__common.Label" String="Yy1Trajetallerfin"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetretourdebut">
-                <Annotation Term="SAP__common.Label" String="Yy1Trajetretourdebut"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetretourfin">
-                <Annotation Term="SAP__common.Label" String="Yy1Trajetretourfin"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsAbs">
-                <Annotation Term="SAP__common.Label" String="IsAbs"/>
-                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsOdm">
-                <Annotation Term="SAP__common.Label" String="IsOdm"/>
-                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/z_i_odm_panierrepas_vh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.yy1panierrepas'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.ValueListWithFixedValues"/>
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Type">
                 <Annotation Term="SAP__common.Label" String="Type"/>
-            </Annotations>
-            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsPostedToSap">
-                <Annotation Term="SAP__common.Label" String="IsPostedToSap"/>
-                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/z_i_odm_timesheettype_vh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.type'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.ValueListWithFixedValues"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapCreateddatetime">
                 <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Created On"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Creation Date Time"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_CREATION_TSTMPL"/>
@@ -320,379 +328,312 @@
                         <PropertyValue Property="Name" String="ZTTS_ODM"/>
                     </Record>
                 </Annotation>
+                <Annotation Term="SAP__common.SideEffects" Qualifier="SAP__Field_Yy1Trajetallerfin">
+                    <Record Type="SAP__common.SideEffectsType">
+                        <PropertyValue Property="SourceProperties">
+                            <Collection>
+                                <PropertyPath>Yy1Trajetallerfin</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="TargetProperties">
+                            <Collection>
+                                <String>Yy1Tempsdetravaildbut</String>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
                 <Annotation Term="SAP__UI.Facets">
                     <Collection>
                         <Record Type="SAP__UI.ReferenceFacet">
-                            <PropertyValue Property="Label" String="General Information"/>
-                            <PropertyValue Property="ID" String="GeneralInfo"/>
-                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification"/>
+                            <PropertyValue Property="Label" String="Infos projets"/>
+                            <PropertyValue Property="ID" String="GeneralAbs"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#GeneralAbs"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsOdm"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Infos projets"/>
+                            <PropertyValue Property="ID" String="GeneralOdm"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#GeneralOdm"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Date"/>
+                            <PropertyValue Property="ID" String="Temps"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#Temps"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsOdm"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Durée"/>
+                            <PropertyValue Property="ID" String="Duree"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#Duree"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsOdm"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Trajet Aller"/>
+                            <PropertyValue Property="ID" String="TrajetA"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#TrajetA"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Temps de travail"/>
+                            <PropertyValue Property="ID" String="TempsTrav"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#TempsTrav"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Trajet Retour"/>
+                            <PropertyValue Property="ID" String="TrajetR"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#TrajetR"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Coupures"/>
+                            <PropertyValue Property="ID" String="Coupures"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#Coupures"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Primes"/>
+                            <PropertyValue Property="ID" String="Primes"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#Primes"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Panier repas"/>
+                            <PropertyValue Property="ID" String="Panier"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#Panier"/>
+                            <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Commentaire"/>
+                            <PropertyValue Property="ID" String="Commentaire"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification#Commentaire"/>
                         </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="SAP__UI.HeaderInfo">
-                    <Annotation Term="SAP__core.Messages">
-                        <Collection>
-                            <Record>
-                                <PropertyValue Property="message" String="UI.HEADERINFO: TypeNamePlural is mandatory"/>
-                                <PropertyValue Property="severity" String="error"/>
-                            </Record>
-                        </Collection>
-                    </Annotation>
                     <Record>
-                        <PropertyValue Property="TypeName" String="###GENERATED Core Data Service Entity"/>
+                        <PropertyValue Property="TypeName" String="Saisie des temps"/>
+                        <PropertyValue Property="TypeNamePlural" String="Saisie des temps"/>
                         <PropertyValue Property="Title">
                             <Record Type="SAP__UI.DataField">
-                                <PropertyValue Property="Value" Path="SapUUID"/>
+                                <PropertyValue Property="Value" Path="Personfullname"/>
                             </Record>
                         </PropertyValue>
                         <PropertyValue Property="Description">
                             <Record Type="SAP__UI.DataField">
-                                <PropertyValue Property="Value" Path="SapUUID"/>
+                                <PropertyValue Property="Value" Path="Personexternalid"/>
                             </Record>
                         </PropertyValue>
                     </Record>
                 </Annotation>
                 <Annotation Term="SAP__UI.Identification">
                     <Collection>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="SapUUID"/>
-                            <PropertyValue Property="Value" Path="SapUUID"/>
+                        <Record Type="SAP__UI.DataFieldForAction">
+                            <PropertyValue Property="Label" String="SetDel"/>
+                            <PropertyValue Property="Action" String="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.setDelete(com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType)"/>
+                            <PropertyValue Property="InvocationGrouping" EnumMember="SAP__UI.OperationGroupingType/Isolated"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="Commentaire">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="Timesheetrecord"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Personexternalid"/>
-                            <PropertyValue Property="Value" Path="Personexternalid"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Personfullname"/>
-                            <PropertyValue Property="Value" Path="Personfullname"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Personworkagreement"/>
-                            <PropertyValue Property="Value" Path="Personworkagreement"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Projet"/>
-                            <PropertyValue Property="Value" Path="Projet"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="ProjetAbs"/>
-                            <PropertyValue Property="Value" Path="ProjetAbs"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="WorkItemID"/>
-                            <PropertyValue Property="Value" Path="WorkItemID"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="WorkItemIdAbs"/>
-                            <PropertyValue Property="Value" Path="WorkItemIdAbs"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="Workdate"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Catstime"/>
-                            <PropertyValue Property="Value" Path="Catstime"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="Catshours"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="Timesheetstatus"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Timesheetrecordlongtext"/>
+                            <PropertyValue Property="Label" String="Commentaire"/>
                             <PropertyValue Property="Value" Path="Timesheetrecordlongtext"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="Coupures">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Coupuredebut"/>
+                            <PropertyValue Property="Label" String="Coupure début"/>
                             <PropertyValue Property="Value" Path="Yy1Coupuredebut"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Coupurefin"/>
+                            <PropertyValue Property="Label" String="Coupure fin"/>
                             <PropertyValue Property="Value" Path="Yy1Coupurefin"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="Duree">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Dureecoupure"/>
-                            <PropertyValue Property="Value" Path="Yy1Dureecoupure"/>
+                            <PropertyValue Property="Label" String="Durée *"/>
+                            <PropertyValue Property="Value" Path="Catstime"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="GeneralAbs">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Projet *"/>
+                            <PropertyValue Property="Value" Path="ProjetAbs"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Duretempsdetravail"/>
-                            <PropertyValue Property="Value" Path="Yy1Duretempsdetravail"/>
+                            <PropertyValue Property="Label" String="Tâche *"/>
+                            <PropertyValue Property="Value" Path="WorkItemIdAbs"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="GeneralOdm">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Projet *"/>
+                            <PropertyValue Property="Value" Path="Projet"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Dureetrajetaller"/>
-                            <PropertyValue Property="Value" Path="Yy1Dureetrajetaller"/>
+                            <PropertyValue Property="Label" String="Tâche *"/>
+                            <PropertyValue Property="Value" Path="WorkItemID"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="Panier">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Dureetrajetretour"/>
-                            <PropertyValue Property="Value" Path="Yy1Dureetrajetretour"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Panierrepas"/>
+                            <PropertyValue Property="Label" String="Panier repas"/>
                             <PropertyValue Property="Value" Path="Yy1Panierrepas"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="Primes">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Primedeprodhif"/>
+                            <PropertyValue Property="Label" String="Prime prod HIF"/>
                             <PropertyValue Property="Value" Path="Yy1Primedeprodhif"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Primedeprodif"/>
+                            <PropertyValue Property="Label" String="Prime prod IF"/>
                             <PropertyValue Property="Value" Path="Yy1Primedeprodif"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="Temps">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Tempsdetravaildbut"/>
+                            <PropertyValue Property="Label" String="Date *"/>
+                            <PropertyValue Property="Value" Path="Workdate"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="TempsTrav">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Temps de travail début *"/>
                             <PropertyValue Property="Value" Path="Yy1Tempsdetravaildbut"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Tempsdetravailfin"/>
+                            <PropertyValue Property="Label" String="Temps de travail fin *"/>
                             <PropertyValue Property="Value" Path="Yy1Tempsdetravailfin"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="TrajetA">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetallerdebut"/>
+                            <PropertyValue Property="Label" String="Trajet Aller début"/>
                             <PropertyValue Property="Value" Path="Yy1Trajetallerdebut"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetallerfin"/>
+                            <PropertyValue Property="Label" String="Trajet Aller fin"/>
                             <PropertyValue Property="Value" Path="Yy1Trajetallerfin"/>
                         </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification" Qualifier="TrajetR">
+                    <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetretourdebut"/>
+                            <PropertyValue Property="Label" String="Trajet Retour début"/>
                             <PropertyValue Property="Value" Path="Yy1Trajetretourdebut"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetretourfin"/>
+                            <PropertyValue Property="Label" String="Trajet Retour fin"/>
                             <PropertyValue Property="Value" Path="Yy1Trajetretourfin"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="IsAbs"/>
-                            <PropertyValue Property="Value" Path="IsAbs"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="IsOdm"/>
-                            <PropertyValue Property="Value" Path="IsOdm"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Type"/>
-                            <PropertyValue Property="Value" Path="Type"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="IsPostedToSap"/>
-                            <PropertyValue Property="Value" Path="IsPostedToSap"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapCreateddatetime"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapCreatedbyuser"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLastchangeddatetime"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLastchangedbyuser"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLocallastchangedby"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLocallastchangedat"/>
                         </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="SAP__UI.LineItem">
+                    <Annotation Term="SAP__UI.Criticality" Path="Timesheetstatuscriticality"/>
                     <Collection>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="SapUUID"/>
-                            <PropertyValue Property="Value" Path="SapUUID"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="Timesheetrecord"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Personexternalid"/>
-                            <PropertyValue Property="Value" Path="Personexternalid"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Personfullname"/>
-                            <PropertyValue Property="Value" Path="Personfullname"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Personworkagreement"/>
-                            <PropertyValue Property="Value" Path="Personworkagreement"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
                             <PropertyValue Property="Label" String="Projet"/>
-                            <PropertyValue Property="Value" Path="Projet"/>
+                            <PropertyValue Property="Value" Path="Projet_line"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="ProjetAbs"/>
-                            <PropertyValue Property="Value" Path="ProjetAbs"/>
+                            <PropertyValue Property="Label" String="Tâche"/>
+                            <PropertyValue Property="Value" Path="WorkItemID_line"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="WorkItemID"/>
-                            <PropertyValue Property="Value" Path="WorkItemID"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="WorkItemIdAbs"/>
-                            <PropertyValue Property="Value" Path="WorkItemIdAbs"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Date"/>
                             <PropertyValue Property="Value" Path="Workdate"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Catstime"/>
-                            <PropertyValue Property="Value" Path="Catstime"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Heures"/>
                             <PropertyValue Property="Value" Path="Catshours"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="Timesheetstatus"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Timesheetrecordlongtext"/>
-                            <PropertyValue Property="Value" Path="Timesheetrecordlongtext"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Coupuredebut"/>
-                            <PropertyValue Property="Value" Path="Yy1Coupuredebut"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Coupurefin"/>
-                            <PropertyValue Property="Value" Path="Yy1Coupurefin"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Dureecoupure"/>
-                            <PropertyValue Property="Value" Path="Yy1Dureecoupure"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Duretempsdetravail"/>
-                            <PropertyValue Property="Value" Path="Yy1Duretempsdetravail"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Dureetrajetaller"/>
-                            <PropertyValue Property="Value" Path="Yy1Dureetrajetaller"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Dureetrajetretour"/>
-                            <PropertyValue Property="Value" Path="Yy1Dureetrajetretour"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Panierrepas"/>
-                            <PropertyValue Property="Value" Path="Yy1Panierrepas"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Primedeprodhif"/>
-                            <PropertyValue Property="Value" Path="Yy1Primedeprodhif"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Primedeprodif"/>
-                            <PropertyValue Property="Value" Path="Yy1Primedeprodif"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Tempsdetravaildbut"/>
-                            <PropertyValue Property="Value" Path="Yy1Tempsdetravaildbut"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Tempsdetravailfin"/>
-                            <PropertyValue Property="Value" Path="Yy1Tempsdetravailfin"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetallerdebut"/>
-                            <PropertyValue Property="Value" Path="Yy1Trajetallerdebut"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetallerfin"/>
-                            <PropertyValue Property="Value" Path="Yy1Trajetallerfin"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetretourdebut"/>
-                            <PropertyValue Property="Value" Path="Yy1Trajetretourdebut"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Yy1Trajetretourfin"/>
-                            <PropertyValue Property="Value" Path="Yy1Trajetretourfin"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="IsAbs"/>
-                            <PropertyValue Property="Value" Path="IsAbs"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="IsOdm"/>
-                            <PropertyValue Property="Value" Path="IsOdm"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="Type"/>
-                            <PropertyValue Property="Value" Path="Type"/>
-                        </Record>
-                        <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Label" String="IsPostedToSap"/>
+                            <PropertyValue Property="Label" String="Envoyé à SAP"/>
                             <PropertyValue Property="Value" Path="IsPostedToSap"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapCreateddatetime"/>
+                            <PropertyValue Property="Label" String="Statut"/>
+                            <PropertyValue Property="Criticality" Path="Timesheetstatuscriticality"/>
+                            <PropertyValue Property="CriticalityRepresentation" EnumMember="SAP__UI.CriticalityRepresentationType/WithIcon"/>
+                            <PropertyValue Property="Value" Path="Timesheetstatus"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapCreatedbyuser"/>
+                            <PropertyValue Property="Label" String="Tps travail début"/>
+                            <PropertyValue Property="Value" Path="Yy1Tempsdetravaildbut"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLastchangeddatetime"/>
+                            <PropertyValue Property="Label" String="Tps travail fin"/>
+                            <PropertyValue Property="Value" Path="Yy1Tempsdetravailfin"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLastchangedbyuser"/>
+                            <PropertyValue Property="Label" String="Trajet Aller début"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetallerdebut"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLocallastchangedby"/>
+                            <PropertyValue Property="Label" String="Trajet Aller fin"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetallerfin"/>
                         </Record>
                         <Record Type="SAP__UI.DataField">
-                            <PropertyValue Property="Value" Path="SapLocallastchangedat"/>
+                            <PropertyValue Property="Label" String="Durée Travail"/>
+                            <PropertyValue Property="Value" Path="Yy1Duretempsdetravail"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Trajet Retour début"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetretourdebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Trajet Retour fin"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetretourfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Coupure début"/>
+                            <PropertyValue Property="Value" Path="Yy1Coupuredebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Coupure fin"/>
+                            <PropertyValue Property="Value" Path="Yy1Coupurefin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Prime prod HIF"/>
+                            <PropertyValue Property="Value" Path="Yy1Primedeprodhif"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Prime prod IF"/>
+                            <PropertyValue Property="Value" Path="Yy1Primedeprodif"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Panier repas"/>
+                            <PropertyValue Property="Value" Path="Yy1Panierrepas"/>
                         </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="SAP__UI.SelectionFields">
                     <Collection>
-                        <PropertyPath>SapUUID</PropertyPath>
-                        <PropertyPath>Timesheetrecord</PropertyPath>
-                        <PropertyPath>Personexternalid</PropertyPath>
-                        <PropertyPath>Personfullname</PropertyPath>
-                        <PropertyPath>Personworkagreement</PropertyPath>
-                        <PropertyPath>Projet</PropertyPath>
-                        <PropertyPath>ProjetAbs</PropertyPath>
-                        <PropertyPath>WorkItemID</PropertyPath>
-                        <PropertyPath>WorkItemIdAbs</PropertyPath>
                         <PropertyPath>Workdate</PropertyPath>
-                        <PropertyPath>Catstime</PropertyPath>
-                        <PropertyPath>Catshours</PropertyPath>
-                        <PropertyPath>Timesheetstatus</PropertyPath>
-                        <PropertyPath>Timesheetrecordlongtext</PropertyPath>
-                        <PropertyPath>Yy1Coupuredebut</PropertyPath>
-                        <PropertyPath>Yy1Coupurefin</PropertyPath>
-                        <PropertyPath>Yy1Dureecoupure</PropertyPath>
-                        <PropertyPath>Yy1Duretempsdetravail</PropertyPath>
-                        <PropertyPath>Yy1Dureetrajetaller</PropertyPath>
-                        <PropertyPath>Yy1Dureetrajetretour</PropertyPath>
-                        <PropertyPath>Yy1Panierrepas</PropertyPath>
-                        <PropertyPath>Yy1Primedeprodhif</PropertyPath>
-                        <PropertyPath>Yy1Primedeprodif</PropertyPath>
-                        <PropertyPath>Yy1Tempsdetravaildbut</PropertyPath>
-                        <PropertyPath>Yy1Tempsdetravailfin</PropertyPath>
-                        <PropertyPath>Yy1Trajetallerdebut</PropertyPath>
-                        <PropertyPath>Yy1Trajetallerfin</PropertyPath>
-                        <PropertyPath>Yy1Trajetretourdebut</PropertyPath>
-                        <PropertyPath>Yy1Trajetretourfin</PropertyPath>
-                        <PropertyPath>IsAbs</PropertyPath>
-                        <PropertyPath>IsOdm</PropertyPath>
-                        <PropertyPath>Type</PropertyPath>
-                        <PropertyPath>IsPostedToSap</PropertyPath>
-                        <PropertyPath>SapCreateddatetime</PropertyPath>
-                        <PropertyPath>SapCreatedbyuser</PropertyPath>
-                        <PropertyPath>SapLastchangeddatetime</PropertyPath>
-                        <PropertyPath>SapLastchangedbyuser</PropertyPath>
-                        <PropertyPath>SapLocallastchangedby</PropertyPath>
-                        <PropertyPath>SapLocallastchangedat</PropertyPath>
                     </Collection>
                 </Annotation>
                 <Annotation Term="SAP__common.Messages" Path="SAP__Messages"/>
@@ -700,12 +641,14 @@
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapCreatedbyuser">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Created By"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Created By User"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_CREATION_USER"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLastchangeddatetime">
                 <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Changed On"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Last Change Date Time"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LASTCHANGE_TSTMPL"/>
@@ -713,6 +656,7 @@
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLastchangedbyuser">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Changed By"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Last Changed By User"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LASTCHANGE_USER"/>
@@ -720,12 +664,14 @@
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLocallastchangedby">
                 <Annotation Term="SAP__core.Computed"/>
                 <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Changed By"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Local Instance Last Changed By User"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LOCINST_LASTCHANGE_USER"/>
             </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLocallastchangedat">
                 <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Changed On"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Local Instance Last Change Date Time"/>
                 <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LOCINST_LASTCHANGE_TSTMPL"/>
@@ -793,6 +739,10 @@
                         <PropertyValue Property="FilterExpressionRestrictions">
                             <Collection>
                                 <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Workdate"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
+                                </Record>
+                                <Record>
                                     <PropertyValue Property="Property" PropertyPath="DraftEntityCreationDateTime"/>
                                     <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
                                 </Record>
@@ -800,6 +750,11 @@
                                     <PropertyValue Property="Property" PropertyPath="DraftEntityLastChangeDateTime"/>
                                     <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
                                 </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="RequiredProperties">
+                            <Collection>
+                                <PropertyPath>Workdate</PropertyPath>
                             </Collection>
                         </PropertyValue>
                         <PropertyValue Property="NonFilterableProperties">
@@ -816,6 +771,15 @@
                             <Collection>
                                 <PropertyPath>__EntityControl</PropertyPath>
                                 <PropertyPath>__OperationControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="RequiredProperties">
+                            <Collection>
+                                <PropertyPath>Type</PropertyPath>
                             </Collection>
                         </PropertyValue>
                     </Record>
@@ -844,7 +808,7 @@
                 </Annotation>
                 <Annotation Term="SAP__capabilities.DeleteRestrictions">
                     <Record>
-                        <PropertyValue Property="Deletable" Path="__EntityControl/Deletable"/>
+                        <PropertyValue Property="Deletable" Bool="false"/>
                     </Record>
                 </Annotation>
                 <Annotation Term="SAP__core.OptimisticConcurrency">
@@ -853,6 +817,9 @@
                     </Collection>
                 </Annotation>
             </Annotations>
+            <Annotations Target="SAP__self.setDelete(SAP__self.ZC_TTS_ODMType)">
+                <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/setDelete"/>
+            </Annotations>
             <Annotations Target="SAP__self.Edit(SAP__self.ZC_TTS_ODMType)/PreserveChanges">
                 <Annotation Term="SAP__common.IsUpperCase"/>
                 <Annotation Term="SAP__common.Label" String="TRUE"/>
@@ -860,6 +827,9 @@
             </Annotations>
             <Annotations Target="SAP__self.Edit(SAP__self.ZC_TTS_ODMType)">
                 <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/Edit"/>
+            </Annotations>
+            <Annotations Target="SAP__self.post(SAP__self.ZC_TTS_ODMType)">
+                <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/post"/>
             </Annotations>
             <Annotations Target="SAP__self.Container">
                 <Annotation Term="SAP__CodeList.UnitsOfMeasure">
@@ -1048,8 +1018,74 @@
                 <Annotation Term="SAP__UI.Hidden"/>
                 <Annotation Term="SAP__common.Label" String="Draft In Process By (Description)"/>
             </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/TimeSheetStatusText">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Status Text"/>
+                <Annotation Term="SAP__common.Heading" String="Timesheet Status Text"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Timesheet Status Text"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Coupuredebut">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Coupurefin">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureecoupure">
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Duretempsdetravail">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureetrajetaller">
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureetrajetretour">
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Primedeprodhif">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                <Annotation Term="SAP__common.Label" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Primedeprodif">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+                <Annotation Term="SAP__common.Label" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Tempsdetravaildbut">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Tempsdetravailfin">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetallerdebut">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetallerfin">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetretourdebut">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetretourfin">
+                <Annotation Term="SAP__UI.Hidden" Path="IsAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsAbs">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsOdm">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
             <Annotations Target="SAP__self.ZC_TTS_ODMType/Workdate">
                 <Annotation Term="SAP__common.Label" String="Date"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsPostedToSap">
+                <Annotation Term="SAP__common.Label" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
             </Annotations>
             <Annotations Target="SAP__self.I_DraftAdministrativeDataType/CreationDateTime">
                 <Annotation Term="SAP__common.Label" String="Draft Created On"/>
@@ -1062,10 +1098,15 @@
                 <Annotation Term="SAP__common.Heading" String="Dynamic Action Control"/>
                 <Annotation Term="SAP__common.QuickInfo" String="Dynamic Action Property"/>
             </Annotations>
-            <Annotations Target="SAP__self.EntityControl/Deletable">
-                <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>
-                <Annotation Term="SAP__common.Heading" String="Dynamic Method Control"/>
-                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Method Property"/>
+            <Annotations Target="SAP__self.ZC_TTS_ODMOperationControl/post">
+                <Annotation Term="SAP__common.Label" String="Dyn. Action Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Action Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Action Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMOperationControl/setDelete">
+                <Annotation Term="SAP__common.Label" String="Dyn. Action Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Action Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Action Property"/>
             </Annotations>
             <Annotations Target="SAP__self.EntityControl/Updatable">
                 <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>

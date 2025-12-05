@@ -42,6 +42,7 @@
           "action": "manage",
           "title": "{{saisieodm-manage.flpTitle}}",
           "subTitle": "{{saisieodm-manage.flpSubtitle}}",
+          "icon": "sap-icon://timesheet",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -67,6 +68,15 @@
     }
   },
   "sap.ui5": {
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController": {
+            "controllerName": "timesheetodm.ext.controller.SetDelete"
+          }
+        }
+      }
+    },
     "flexEnabled": true,
     "dependencies": {
       "minUI5Version": "1.136.11",
@@ -138,6 +148,19 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
+                  },
+                  "columns": {
+                    "CustomColumnRating": {
+                      "header": "Supprimer Inline",
+                      "width": "10em",
+                      "importance": "High",
+                      "horizontalAlign": "Center",
+                      "position": {
+                        "placement": "Before"
+                      },
+                      "template": "timesheetodm.ext.fragment.customdeletebutton",
+                      "availability": "Default"
+                    }
                   }
                 }
               }
@@ -151,7 +174,20 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/ZC_TTS_ODM"
+              "contextPath": "/ZC_TTS_ODM",
+              "content": {
+                "footer": {
+                  "actions": {
+                    "Confirmation": {
+                      "press": "timesheetodm.ext.controller.Confirmation.postConfirmation",
+                      "visible": true,
+                      "enabled": "{= ${ui>/editMode} !== 'Editable'}",
+                      "requiresSelection": false,
+                      "text": "Post"
+                    }
+                  }
+                }
+              }
             }
           }
         }

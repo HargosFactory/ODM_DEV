@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout id="myVL">
+		<Button id="myButtonId" text="Custom Button" press=".extension.saisieodm.ext.controller.SetDelete.setdeleteaction" />
+	</l:VerticalLayout>
+</core:FragmentDefinition>
