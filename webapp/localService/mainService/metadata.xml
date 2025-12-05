@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="SAP__aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="SAP__capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HIERARCHY',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Hierarchy.v1" Alias="SAP__hierarchy"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="SAP__HTML5"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="SAP__measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.ODM.v1" Alias="SAP__ODM"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Session.v1" Alias="SAP__session"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="SAP__UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="SAP__validation"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="com.sap.gateway.srvd.zui_tts_odm_o4.v0001" Alias="SAP__self">
+            <Annotation Term="SAP__core.SchemaVersion" String="1.0.0"/>
+            <EntityType Name="ZC_TTS_ODMType">
+                <Key>
+                    <PropertyRef Name="SapUUID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="SapUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Timesheetrecord" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="Personexternalid" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="Personfullname" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="Personworkagreement" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Projet" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="ProjetAbs" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="WorkItemID" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="WorkItemIdAbs" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="Workdate" Type="Edm.Date"/>
+                <Property Name="Catstime" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="Catshours" Type="Edm.Decimal" Nullable="false" Precision="4" Scale="2"/>
+                <Property Name="Meinh" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="Timesheetstatus" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="Timesheetrecordlongtext" Type="Edm.String" Nullable="false" MaxLength="1000"/>
+                <Property Name="Yy1Coupuredebut" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Coupurefin" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Dureecoupure" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="Yy1Duretempsdetravail" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="Yy1Dureetrajetaller" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="Yy1Dureetrajetretour" Type="Edm.TimeOfDay" Nullable="false"/>
+                <Property Name="Yy1Panierrepas" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="Yy1Primedeprodhif" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Yy1Primedeprodif" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Yy1Tempsdetravaildbut" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Tempsdetravailfin" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Trajetallerdebut" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Trajetallerfin" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Trajetretourdebut" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="Yy1Trajetretourfin" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="IsAbs" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="IsOdm" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Type" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="IsPostedToSap" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="SapCreateddatetime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="SapCreatedbyuser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="SapLastchangeddatetime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="SapLastchangedbyuser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="SapLocallastchangedby" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="SapLocallastchangedat" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="__EntityControl" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.EntityControl"/>
+                <Property Name="__OperationControl" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMOperationControl"/>
+                <Property Name="SAP__Messages" Type="Collection(com.sap.gateway.srvd.zui_tts_odm_o4.v0001.SAP__Message)" Nullable="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.I_DraftAdministrativeDataType"/>
+                <NavigationProperty Name="SiblingEntity" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType"/>
+            </EntityType>
+            <EntityType Name="I_DraftAdministrativeDataType">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                    <PropertyRef Name="DraftEntityType"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="DraftEntityType" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="DraftAccessType" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="ProcessingStartDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="InProcessByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="DraftIsKeptByUser" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="EnqueueStartDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="DraftIsLastChangedByMe" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedByUserDescription" Type="Edm.String" Nullable="false" MaxLength="80"/>
+                <Property Name="LastChangedByUserDescription" Type="Edm.String" Nullable="false" MaxLength="80"/>
+                <Property Name="InProcessByUserDescription" Type="Edm.String" Nullable="false" MaxLength="80"/>
+            </EntityType>
+            <ComplexType Name="ZC_TTS_ODMOperationControl">
+                <Property Name="Edit" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="EntityControl">
+                <Property Name="Deletable" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="Updatable" Type="Edm.Boolean" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="SAP__Message">
+                <Property Name="code" Type="Edm.String" Nullable="false"/>
+                <Property Name="message" Type="Edm.String" Nullable="false"/>
+                <Property Name="target" Type="Edm.String"/>
+                <Property Name="additionalTargets" Type="Collection(Edm.String)" Nullable="false"/>
+                <Property Name="transition" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="numericSeverity" Type="Edm.Byte" Nullable="false"/>
+                <Property Name="longtextUrl" Type="Edm.String"/>
+            </ComplexType>
+            <Action Name="Discard" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
+            <Action Name="Resume" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
+            <Action Name="Activate" EntitySetPath="_it" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+                <ReturnType Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
+            <Action Name="Edit" EntitySetPath="_it" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean" Nullable="false"/>
+                <ReturnType Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
+            <Action Name="Prepare" IsBound="true">
+                <Parameter Name="_it" Type="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType" Nullable="false"/>
+            </Action>
+            <EntityContainer Name="Container">
+                <EntitySet Name="I_DraftAdministrativeData" EntityType="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.I_DraftAdministrativeDataType"/>
+                <EntitySet Name="ZC_TTS_ODM" EntityType="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.ZC_TTS_ODMType">
+                    <NavigationPropertyBinding Path="DraftAdministrativeData" Target="I_DraftAdministrativeData"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ZC_TTS_ODM"/>
+                </EntitySet>
+            </EntityContainer>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapUUID">
+                <Annotation Term="SAP__common.Label" String="SapUUID"/>
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Heading" String="UUID"/>
+                <Annotation Term="SAP__common.QuickInfo" String="16 Byte UUID in 16 Bytes (Raw Format)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Timesheetrecord">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Counter"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Counter for Records in Time Recording"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CATSCOUNTE"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Personexternalid">
+                <Annotation Term="SAP__common.Label" String="Personexternalid"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Personfullname">
+                <Annotation Term="SAP__common.Label" String="Personfullname"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Personworkagreement">
+                <Annotation Term="SAP__common.Label" String="Personworkagreement"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Projet">
+                <Annotation Term="SAP__common.Label" String="Projet"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/ProjetAbs">
+                <Annotation Term="SAP__common.Label" String="ProjetAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/WorkItemID">
+                <Annotation Term="SAP__common.Label" String="WorkItemID"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/WorkItemIdAbs">
+                <Annotation Term="SAP__common.Label" String="WorkItemIdAbs"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Catstime">
+                <Annotation Term="SAP__common.Label" String="Catstime"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Catshours">
+                <Annotation Term="SAP__measures.Unit" Path="Meinh"/>
+                <Annotation Term="SAP__common.Label" String="Hours"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CATSHOURS"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Meinh">
+                <Annotation Term="SAP__common.IsUnit"/>
+                <Annotation Term="SAP__common.ValueListForValidation" String=""/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_unitofmeasurestdvh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-zc_tts_odm.meinh'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Label" String="Display Unit/Measure"/>
+                <Annotation Term="SAP__common.Heading" String="UM"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Unit of Measure for Display"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=MEINH"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Timesheetstatus">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Processing Status"/>
+                <Annotation Term="SAP__common.Heading" String="St."/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=CATSSTATUS"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Timesheetrecordlongtext">
+                <Annotation Term="SAP__common.Label" String="Timesheetrecordlongtext"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Coupuredebut">
+                <Annotation Term="SAP__common.Label" String="Yy1Coupuredebut"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Coupurefin">
+                <Annotation Term="SAP__common.Label" String="Yy1Coupurefin"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureecoupure">
+                <Annotation Term="SAP__common.Label" String="Yy1Dureecoupure"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Duretempsdetravail">
+                <Annotation Term="SAP__common.Label" String="Yy1Duretempsdetravail"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureetrajetaller">
+                <Annotation Term="SAP__common.Label" String="Yy1Dureetrajetaller"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Dureetrajetretour">
+                <Annotation Term="SAP__common.Label" String="Yy1Dureetrajetretour"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Panierrepas">
+                <Annotation Term="SAP__common.Label" String="Yy1Panierrepas"/>
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Primedeprodhif">
+                <Annotation Term="SAP__common.Label" String="Yy1Primedeprodhif"/>
+                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Primedeprodif">
+                <Annotation Term="SAP__common.Label" String="Yy1Primedeprodif"/>
+                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Tempsdetravaildbut">
+                <Annotation Term="SAP__common.Label" String="Yy1Tempsdetravaildbut"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Tempsdetravailfin">
+                <Annotation Term="SAP__common.Label" String="Yy1Tempsdetravailfin"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetallerdebut">
+                <Annotation Term="SAP__common.Label" String="Yy1Trajetallerdebut"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetallerfin">
+                <Annotation Term="SAP__common.Label" String="Yy1Trajetallerfin"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetretourdebut">
+                <Annotation Term="SAP__common.Label" String="Yy1Trajetretourdebut"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Yy1Trajetretourfin">
+                <Annotation Term="SAP__common.Label" String="Yy1Trajetretourfin"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsAbs">
+                <Annotation Term="SAP__common.Label" String="IsAbs"/>
+                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsOdm">
+                <Annotation Term="SAP__common.Label" String="IsOdm"/>
+                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Type">
+                <Annotation Term="SAP__common.Label" String="Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsPostedToSap">
+                <Annotation Term="SAP__common.Label" String="IsPostedToSap"/>
+                <Annotation Term="SAP__common.Heading" String="Truth Value"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Truth Value: True/False"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapCreateddatetime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Created On"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Creation Date Time"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_CREATION_TSTMPL"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType">
+                <Annotation Term="SAP__common.CreatedAt" Path="SapCreateddatetime"/>
+                <Annotation Term="SAP__common.CreatedBy" Path="SapCreatedbyuser"/>
+                <Annotation Term="SAP__common.ChangedAt" Path="SapLastchangeddatetime"/>
+                <Annotation Term="SAP__common.ChangedBy" Path="SapLastchangedbyuser"/>
+                <Annotation Term="SAP__common.Label" String="###GENERATED Core Data Service Entity"/>
+                <Annotation Term="SAP__common.SAPObjectNodeType">
+                    <Record>
+                        <PropertyValue Property="Name" String="ZTTS_ODM"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.Facets">
+                    <Collection>
+                        <Record Type="SAP__UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="General Information"/>
+                            <PropertyValue Property="ID" String="GeneralInfo"/>
+                            <PropertyValue Property="Target" AnnotationPath="@SAP__UI.Identification"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.HeaderInfo">
+                    <Annotation Term="SAP__core.Messages">
+                        <Collection>
+                            <Record>
+                                <PropertyValue Property="message" String="UI.HEADERINFO: TypeNamePlural is mandatory"/>
+                                <PropertyValue Property="severity" String="error"/>
+                            </Record>
+                        </Collection>
+                    </Annotation>
+                    <Record>
+                        <PropertyValue Property="TypeName" String="###GENERATED Core Data Service Entity"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="SAP__UI.DataField">
+                                <PropertyValue Property="Value" Path="SapUUID"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="SAP__UI.DataField">
+                                <PropertyValue Property="Value" Path="SapUUID"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__UI.Identification">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="SapUUID"/>
+                            <PropertyValue Property="Value" Path="SapUUID"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Timesheetrecord"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Personexternalid"/>
+                            <PropertyValue Property="Value" Path="Personexternalid"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Personfullname"/>
+                            <PropertyValue Property="Value" Path="Personfullname"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Personworkagreement"/>
+                            <PropertyValue Property="Value" Path="Personworkagreement"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Projet"/>
+                            <PropertyValue Property="Value" Path="Projet"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="ProjetAbs"/>
+                            <PropertyValue Property="Value" Path="ProjetAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="WorkItemID"/>
+                            <PropertyValue Property="Value" Path="WorkItemID"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="WorkItemIdAbs"/>
+                            <PropertyValue Property="Value" Path="WorkItemIdAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Workdate"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Catstime"/>
+                            <PropertyValue Property="Value" Path="Catstime"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Catshours"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Timesheetstatus"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Timesheetrecordlongtext"/>
+                            <PropertyValue Property="Value" Path="Timesheetrecordlongtext"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Coupuredebut"/>
+                            <PropertyValue Property="Value" Path="Yy1Coupuredebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Coupurefin"/>
+                            <PropertyValue Property="Value" Path="Yy1Coupurefin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Dureecoupure"/>
+                            <PropertyValue Property="Value" Path="Yy1Dureecoupure"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Duretempsdetravail"/>
+                            <PropertyValue Property="Value" Path="Yy1Duretempsdetravail"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Dureetrajetaller"/>
+                            <PropertyValue Property="Value" Path="Yy1Dureetrajetaller"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Dureetrajetretour"/>
+                            <PropertyValue Property="Value" Path="Yy1Dureetrajetretour"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Panierrepas"/>
+                            <PropertyValue Property="Value" Path="Yy1Panierrepas"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Primedeprodhif"/>
+                            <PropertyValue Property="Value" Path="Yy1Primedeprodhif"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Primedeprodif"/>
+                            <PropertyValue Property="Value" Path="Yy1Primedeprodif"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Tempsdetravaildbut"/>
+                            <PropertyValue Property="Value" Path="Yy1Tempsdetravaildbut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Tempsdetravailfin"/>
+                            <PropertyValue Property="Value" Path="Yy1Tempsdetravailfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetallerdebut"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetallerdebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetallerfin"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetallerfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetretourdebut"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetretourdebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetretourfin"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetretourfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="IsAbs"/>
+                            <PropertyValue Property="Value" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="IsOdm"/>
+                            <PropertyValue Property="Value" Path="IsOdm"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Type"/>
+                            <PropertyValue Property="Value" Path="Type"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="IsPostedToSap"/>
+                            <PropertyValue Property="Value" Path="IsPostedToSap"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapCreateddatetime"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapCreatedbyuser"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLastchangeddatetime"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLastchangedbyuser"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLocallastchangedby"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLocallastchangedat"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.LineItem">
+                    <Collection>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="SapUUID"/>
+                            <PropertyValue Property="Value" Path="SapUUID"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Timesheetrecord"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Personexternalid"/>
+                            <PropertyValue Property="Value" Path="Personexternalid"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Personfullname"/>
+                            <PropertyValue Property="Value" Path="Personfullname"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Personworkagreement"/>
+                            <PropertyValue Property="Value" Path="Personworkagreement"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Projet"/>
+                            <PropertyValue Property="Value" Path="Projet"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="ProjetAbs"/>
+                            <PropertyValue Property="Value" Path="ProjetAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="WorkItemID"/>
+                            <PropertyValue Property="Value" Path="WorkItemID"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="WorkItemIdAbs"/>
+                            <PropertyValue Property="Value" Path="WorkItemIdAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Workdate"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Catstime"/>
+                            <PropertyValue Property="Value" Path="Catstime"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Catshours"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="Timesheetstatus"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Timesheetrecordlongtext"/>
+                            <PropertyValue Property="Value" Path="Timesheetrecordlongtext"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Coupuredebut"/>
+                            <PropertyValue Property="Value" Path="Yy1Coupuredebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Coupurefin"/>
+                            <PropertyValue Property="Value" Path="Yy1Coupurefin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Dureecoupure"/>
+                            <PropertyValue Property="Value" Path="Yy1Dureecoupure"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Duretempsdetravail"/>
+                            <PropertyValue Property="Value" Path="Yy1Duretempsdetravail"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Dureetrajetaller"/>
+                            <PropertyValue Property="Value" Path="Yy1Dureetrajetaller"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Dureetrajetretour"/>
+                            <PropertyValue Property="Value" Path="Yy1Dureetrajetretour"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Panierrepas"/>
+                            <PropertyValue Property="Value" Path="Yy1Panierrepas"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Primedeprodhif"/>
+                            <PropertyValue Property="Value" Path="Yy1Primedeprodhif"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Primedeprodif"/>
+                            <PropertyValue Property="Value" Path="Yy1Primedeprodif"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Tempsdetravaildbut"/>
+                            <PropertyValue Property="Value" Path="Yy1Tempsdetravaildbut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Tempsdetravailfin"/>
+                            <PropertyValue Property="Value" Path="Yy1Tempsdetravailfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetallerdebut"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetallerdebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetallerfin"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetallerfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetretourdebut"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetretourdebut"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Yy1Trajetretourfin"/>
+                            <PropertyValue Property="Value" Path="Yy1Trajetretourfin"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="IsAbs"/>
+                            <PropertyValue Property="Value" Path="IsAbs"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="IsOdm"/>
+                            <PropertyValue Property="Value" Path="IsOdm"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="Type"/>
+                            <PropertyValue Property="Value" Path="Type"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Label" String="IsPostedToSap"/>
+                            <PropertyValue Property="Value" Path="IsPostedToSap"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapCreateddatetime"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapCreatedbyuser"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLastchangeddatetime"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLastchangedbyuser"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLocallastchangedby"/>
+                        </Record>
+                        <Record Type="SAP__UI.DataField">
+                            <PropertyValue Property="Value" Path="SapLocallastchangedat"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>SapUUID</PropertyPath>
+                        <PropertyPath>Timesheetrecord</PropertyPath>
+                        <PropertyPath>Personexternalid</PropertyPath>
+                        <PropertyPath>Personfullname</PropertyPath>
+                        <PropertyPath>Personworkagreement</PropertyPath>
+                        <PropertyPath>Projet</PropertyPath>
+                        <PropertyPath>ProjetAbs</PropertyPath>
+                        <PropertyPath>WorkItemID</PropertyPath>
+                        <PropertyPath>WorkItemIdAbs</PropertyPath>
+                        <PropertyPath>Workdate</PropertyPath>
+                        <PropertyPath>Catstime</PropertyPath>
+                        <PropertyPath>Catshours</PropertyPath>
+                        <PropertyPath>Timesheetstatus</PropertyPath>
+                        <PropertyPath>Timesheetrecordlongtext</PropertyPath>
+                        <PropertyPath>Yy1Coupuredebut</PropertyPath>
+                        <PropertyPath>Yy1Coupurefin</PropertyPath>
+                        <PropertyPath>Yy1Dureecoupure</PropertyPath>
+                        <PropertyPath>Yy1Duretempsdetravail</PropertyPath>
+                        <PropertyPath>Yy1Dureetrajetaller</PropertyPath>
+                        <PropertyPath>Yy1Dureetrajetretour</PropertyPath>
+                        <PropertyPath>Yy1Panierrepas</PropertyPath>
+                        <PropertyPath>Yy1Primedeprodhif</PropertyPath>
+                        <PropertyPath>Yy1Primedeprodif</PropertyPath>
+                        <PropertyPath>Yy1Tempsdetravaildbut</PropertyPath>
+                        <PropertyPath>Yy1Tempsdetravailfin</PropertyPath>
+                        <PropertyPath>Yy1Trajetallerdebut</PropertyPath>
+                        <PropertyPath>Yy1Trajetallerfin</PropertyPath>
+                        <PropertyPath>Yy1Trajetretourdebut</PropertyPath>
+                        <PropertyPath>Yy1Trajetretourfin</PropertyPath>
+                        <PropertyPath>IsAbs</PropertyPath>
+                        <PropertyPath>IsOdm</PropertyPath>
+                        <PropertyPath>Type</PropertyPath>
+                        <PropertyPath>IsPostedToSap</PropertyPath>
+                        <PropertyPath>SapCreateddatetime</PropertyPath>
+                        <PropertyPath>SapCreatedbyuser</PropertyPath>
+                        <PropertyPath>SapLastchangeddatetime</PropertyPath>
+                        <PropertyPath>SapLastchangedbyuser</PropertyPath>
+                        <PropertyPath>SapLocallastchangedby</PropertyPath>
+                        <PropertyPath>SapLocallastchangedat</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Messages" Path="SAP__Messages"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapCreatedbyuser">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Created By"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Created By User"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_CREATION_USER"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLastchangeddatetime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Changed On"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Last Change Date Time"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LASTCHANGE_TSTMPL"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLastchangedbyuser">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Changed By"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Last Changed By User"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LASTCHANGE_USER"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLocallastchangedby">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Changed By"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Local Instance Last Changed By User"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LOCINST_LASTCHANGE_USER"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/SapLocallastchangedat">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__common.Label" String="Changed On"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Local Instance Last Change Date Time"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=ABP_LOCINST_LASTCHANGE_TSTMPL"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/HasDraftEntity">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Has Draft"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Draft - Indicator - Has draft document"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/DraftEntityCreationDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/DraftEntityLastChangeDateTime">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/HasActiveEntity">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Has active"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Draft - Indicator - Has active document"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/IsActiveEntity">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Is active"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Draft - Indicator - Is active document"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/__EntityControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/__OperationControl">
+                <Annotation Term="SAP__core.Computed"/>
+                <Annotation Term="SAP__UI.HiddenFilter"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/ZC_TTS_ODM">
+                <Annotation Term="SAP__common.DraftRoot">
+                    <Record>
+                        <PropertyValue Property="DiscardAction" String="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.Discard"/>
+                        <PropertyValue Property="ActivationAction" String="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.Activate"/>
+                        <PropertyValue Property="EditAction" String="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.Edit"/>
+                        <PropertyValue Property="PreparationAction" String="com.sap.gateway.srvd.zui_tts_odm_o4.v0001.Prepare"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="Filterable" Bool="true"/>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="DraftEntityCreationDateTime"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="DraftEntityLastChangeDateTime"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                                <PropertyPath>__OperationControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>__EntityControl</PropertyPath>
+                                <PropertyPath>__OperationControl</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="DeltaUpdateSupported" Bool="true"/>
+                        <PropertyValue Property="Updatable" Path="__EntityControl/Updatable"/>
+                        <PropertyValue Property="NonUpdatableNavigationProperties">
+                            <Collection>
+                                <PropertyPath>DraftAdministrativeData</PropertyPath>
+                                <PropertyPath>SiblingEntity</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeepUpdateSupport">
+                    <Record>
+                        <PropertyValue Property="ContentIDSupported" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Path="__EntityControl/Deletable"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__core.OptimisticConcurrency">
+                    <Collection>
+                        <PropertyPath>SapLocallastchangedat</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Edit(SAP__self.ZC_TTS_ODMType)/PreserveChanges">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="TRUE"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Data element for domain BOOLE: TRUE (='X') and FALSE (=' ')"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Edit(SAP__self.ZC_TTS_ODMType)">
+                <Annotation Term="SAP__core.OperationAvailable" Path="_it/__OperationControl/Edit"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container">
+                <Annotation Term="SAP__CodeList.UnitsOfMeasure">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="CollectionPath" String="UnitsOfMeasure"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="SAP__UI.LeadingEntitySet" String="ZC_TTS_ODM"/>
+                <Annotation Term="SAP__capabilities.FilterFunctions">
+                    <Collection>
+                        <String>eq</String>
+                        <String>ne</String>
+                        <String>gt</String>
+                        <String>ge</String>
+                        <String>lt</String>
+                        <String>le</String>
+                        <String>and</String>
+                        <String>or</String>
+                        <String>contains</String>
+                        <String>startswith</String>
+                        <String>endswith</String>
+                        <String>any</String>
+                        <String>all</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SupportedFormats">
+                    <Collection>
+                        <String>application/json</String>
+                        <String>application/pdf</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__PDF.Features">
+                    <Record>
+                        <PropertyValue Property="DocumentDescriptionReference" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="DocumentDescriptionCollection" String="MyDocumentDescriptions"/>
+                        <PropertyValue Property="ArchiveFormat" Bool="true"/>
+                        <PropertyValue Property="Border" Bool="true"/>
+                        <PropertyValue Property="CoverPage" Bool="true"/>
+                        <PropertyValue Property="FitToPage" Bool="true"/>
+                        <PropertyValue Property="FontName" Bool="true"/>
+                        <PropertyValue Property="FontSize" Bool="true"/>
+                        <PropertyValue Property="HeaderFooter" Bool="true"/>
+                        <PropertyValue Property="IANATimezoneFormat" Bool="true"/>
+                        <PropertyValue Property="Margin" Bool="true"/>
+                        <PropertyValue Property="Padding" Bool="true"/>
+                        <PropertyValue Property="ResultSizeDefault" Int="20000"/>
+                        <PropertyValue Property="ResultSizeMaximum" Int="20000"/>
+                        <PropertyValue Property="Signature" Bool="true"/>
+                        <PropertyValue Property="TextDirectionLayout" Bool="true"/>
+                        <PropertyValue Property="Treeview" Bool="true"/>
+                        <PropertyValue Property="UploadToFileShare" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.KeyAsSegmentSupported"/>
+                <Annotation Term="SAP__capabilities.AsynchronousRequestsSupported"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftEntityType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Entity ID"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/CreatedByUser">
+                <Annotation Term="SAP__common.Text" Path="CreatedByUserDescription"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_draftadministrativeuservh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-i_draftadministrativedata.createdbyuser'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Label" String="Draft Created By"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/LastChangedByUser">
+                <Annotation Term="SAP__common.Text" Path="LastChangedByUserDescription"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.ValueListReferences">
+                    <Collection>
+                        <String>../../../../srvd_f4/sap/i_draftadministrativeuservh/0001;ps='srvd-zui_tts_odm_o4-0001';va='com.sap.gateway.srvd.zui_tts_odm_o4.v0001.et-i_draftadministrativedata.lastchangedbyuser'/$metadata</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__common.Label" String="Draft Last Changed By"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftAccessType">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Access Type"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/InProcessByUser">
+                <Annotation Term="SAP__common.Text" Path="InProcessByUserDescription"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft In Process By"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType">
+                <Annotation Term="SAP__common.Label" String="Draft Administration Data"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/I_DraftAdministrativeData">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="true"/>
+                        <PropertyValue Property="UnsupportedExpressions" EnumMember="SAP__capabilities.SearchExpressions/AND SAP__capabilities.SearchExpressions/NOT SAP__capabilities.SearchExpressions/group "/>
+                        <PropertyValue Property="SearchSyntax" String="https://url.sap/odata-search"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="Filterable" Bool="true"/>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="CreationDateTime"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="LastChangeDateTime"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SingleRange"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.ReadRestrictions">
+                    <Record>
+                        <PropertyValue Property="Readable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftUUID">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft (Technical ID)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/ProcessingStartDateTime">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft In Process Since"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsKeptByUser">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Is Kept By User"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/EnqueueStartDateTime">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Locked Since"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsCreatedByMe">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Created By Me"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsLastChangedByMe">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Last Changed By Me"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/DraftIsProcessedByMe">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft In Process By Me"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/CreatedByUserDescription">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Created By (Description)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/LastChangedByUserDescription">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft Last Changed By (Description)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/InProcessByUserDescription">
+                <Annotation Term="SAP__UI.Hidden"/>
+                <Annotation Term="SAP__common.Label" String="Draft In Process By (Description)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMType/Workdate">
+                <Annotation Term="SAP__common.Label" String="Date"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/CreationDateTime">
+                <Annotation Term="SAP__common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="SAP__self.I_DraftAdministrativeDataType/LastChangeDateTime">
+                <Annotation Term="SAP__common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ZC_TTS_ODMOperationControl/Edit">
+                <Annotation Term="SAP__common.Label" String="Dyn. Action Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Action Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Action Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.EntityControl/Deletable">
+                <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Method Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Method Property"/>
+            </Annotations>
+            <Annotations Target="SAP__self.EntityControl/Updatable">
+                <Annotation Term="SAP__common.Label" String="Dyn. Method Control"/>
+                <Annotation Term="SAP__common.Heading" String="Dynamic Method Control"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Dynamic Method Property"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

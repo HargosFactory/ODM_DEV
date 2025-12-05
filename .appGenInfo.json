@@ -1,0 +1,29 @@
+{
+  "generationParameters": {
+    "generationDate": "Wed Dec 03 2025 10:59:52 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "SAP System (ABAP On-Premise)",
+    "metadataFilename": "",
+    "serviceUrl": "https://my420983.s4hana.cloud.sap/sap/opu/odata4/sap/zui_tts_odm_o4/srvd/sap/zui_tts_odm_o4/0001/",
+    "appName": "timesheetodm",
+    "appTitle": "Saisie des temps",
+    "appDescription": "Saisie des temps ODM / MANAGER",
+    "appNamespace": "",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.136.11",
+    "enableCodeAssist": false,
+    "enableEslint": false,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.19.6",
+    "template": "List Report Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "ZC_TTS_ODM"
+      }
+    ],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
+  }
+}
